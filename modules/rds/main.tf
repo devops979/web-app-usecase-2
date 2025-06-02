@@ -13,7 +13,6 @@ resource "aws_db_instance" "mysql" {
   db_name              = var.db_name
   username             = var.username
   password             = var.password
-  #parameter_group_name = var.parameter_group_name
   publicly_accessible  = false
   db_subnet_group_name = aws_db_subnet_group.rds.name
   vpc_security_group_ids = var.vpc_security_group_ids
@@ -22,6 +21,4 @@ resource "aws_db_instance" "mysql" {
   tags = var.tags
 }
 
-output "db_endpoint" {
-  value = aws_db_instance.mysql.endpoint
-}
+

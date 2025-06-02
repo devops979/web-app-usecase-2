@@ -45,6 +45,3 @@ resource "aws_lb_target_group_attachment" "web_tg_attachment" {
   port             = var.target_group_port
 }
 
-output "alb_dns_name" {
-  value = aws_lb.web_lb.dns_name
-}

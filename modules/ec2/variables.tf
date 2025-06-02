@@ -1,35 +1,33 @@
-variable "instance_count" {
-  description = "Number of instances to create"
-  type        = number
-  default     = 2
-}
 
-variable "ami" {
-  description = "AMI ID"
+variable "ami_name" {
+  description = "AMI name for EC2 instances"
   type        = string
+  default     = "ami-0953476d60561c955" # Amazon Linux 2
 }
 
-variable "instance_type" {
-  description = "Instance type"
-  type        = string
-}
+variable "instance_type" {}
+variable "key_name" {}
+variable "private_subnets" {}
+variable "sg_id" {}
+variable "vpc_name" {}
+#variable elb_listener {}
+#variable "iam_instance_profile" {
+#  description = "IAM instance profile for EC2 instances"
+#  type        = string
+#  default     = ""
+#}
+variable "project_name" {}
 
-variable "subnet_ids" {
-  description = "List of subnet IDs"
-  type        = list(string)
-}
+variable "associate_public_ip_address" {
+  description = "Associate public IP address with EC2 instances"
+  type        = bool
+  default     = false
 
-variable "security_group_id" {
-  description = "Security group ID"
-  type        = string
 }
 
 variable "user_data" {
-  description = "User data script"
+  description = "user_data scripts"
   type        = string
-}
+  default     = ""
 
-variable "tags" {
-  description = "Tags to apply to resources"
-  type        = map(string)
 }

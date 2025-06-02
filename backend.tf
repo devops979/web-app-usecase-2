@@ -1,10 +1,15 @@
 terraform {
-  required_version = ">= 1.1.0"
+  required_version = ">= 1.12.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.99.1"
+    }
+  }
+
   backend "s3" {
-    bucket         = "techopsbucket123"
-    key            = "vpcec2/terraform.tfstate8"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "demo_table123"
+    bucket = "demo-usecases-bucket-new"
+    key    = "usecase-02/terraform.tftstate"
+    region = "us-east-1"
   }
 }

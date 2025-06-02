@@ -1,54 +1,43 @@
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.94.1"
-    }
-  }
-}
-
 provider "aws" {
   region = var.region
 }
-data "aws_availability_zones" "available" {}
 
-module "vpc" {
-  source     = "./modules/vpc"
-  cidr_block = var.cidr_block
-  tags       = var.tags
+
+module "network" {
+  source             = "./modules/network"
+  vpc_cidr           = var.cidr_block
+  vpc_name           = "demo-webapp-vpc"
+  environment        = var.environment
+  public_cidr_block  = var.public_subnet_cidrs
+  private_cidr_block = var.private_subnet_cidrs
+  azs                = var.availability_zones
+  Owner              = "demo-webapp-alb"
 }
 
-module "subnets" {
-  source             = "./modules/subnets"
-  vpc_id             = module.vpc.vpc_id
-  vpc_cidr_block     = var.cidr_block
-  availability_zones = data.aws_availability_zones.available.names
-  tags               = var.tags
+module "nat" {
+  source           = "./modules/nat"
+  public_subnet_id = module.network.public_subnets_id[0]
+  private_rt_ids   = module.network.private_route_table_ids
+  vpc_name         = module.network.vpc_name
 }
 
-module "route_tables" {
-  source             = "./modules/route_tables"
-  vpc_id             = module.vpc.vpc_id
-  igw_id             = module.vpc.igw_id
-  public_subnet_ids  = module.subnets.public_subnet_ids
-  private_subnet_ids = module.subnets.private_subnet_ids
-  tags               = var.tags
-}
+
 
 module "security_groups" {
   source = "./modules/security_groups"
-  vpc_id = module.vpc.vpc_id
+  vpc_id = module.network.vpc_id
   tags   = var.tags
 }
 
 module "ec2" {
-  source            = "./modules/ec2"
-  instance_count    = 2
-  ami               = var.ami
-  instance_type     = var.instance_type
-  subnet_ids        = module.subnets.public_subnet_ids
-  security_group_id = module.security_groups.web_sg_id
+   source            = "./modules/ec2"
+   key_name        = var.key_name
+   ami        = var.ami_id
+   vpc_security_group_ids         = module.sg.sg_id
+   vpc_name        = module.network.vpc_name
+   subnet_id = module.network.public_subnets_id
+   instance_type   = var.instance_type
+   project_name    = "demo-instance"
   user_data         = <<-EOF
                       #!/bin/bash
                       sudo apt update -y
@@ -56,13 +45,12 @@ module "ec2" {
                       sudo systemctl start nginx
                       sudo systemctl enable nginx
                       EOF
-  tags              = var.tags
 }
 
 module "rds" {
   source               = "./modules/rds"
   db_subnet_group_name = "main-db-subnet-group"
-  subnet_ids           = module.subnets.private_subnet_ids
+  subnet_ids           = module.network.private_subnets_id
   allocated_storage    = 20
   engine               = "mysql"
   engine_version       = "8.0"
@@ -79,7 +67,7 @@ module "alb" {
   source                = "./modules/alb"
   name                  = "web-lb"
   security_group_id     = module.security_groups.web_sg_id
-  subnet_ids            = module.subnets.public_subnet_ids
+  subnet_ids            = module.network.public_subnet_id
   target_group_name     = "web-target-group"
   target_group_port     = 80
   target_group_protocol = "HTTP"
@@ -92,6 +80,6 @@ module "alb" {
   unhealthy_threshold   = 2
   listener_port         = 80
   listener_protocol     = "HTTP"
-  target_ids            = module.ec2.web_instance_ids
+  target_ids            = module.ec2.instance_id
   tags                  = var.tags
 }
