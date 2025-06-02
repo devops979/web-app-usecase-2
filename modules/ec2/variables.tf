@@ -7,7 +7,7 @@ variable "ami_name" {
 
 variable "instance_type" {}
 variable "key_name" {}
-variable "private_subnets" {}
+variable "public_subnets" {}
 variable "sg_id" {}
 variable "vpc_name" {}
 #variable elb_listener {}
