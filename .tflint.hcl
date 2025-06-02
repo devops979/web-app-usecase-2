@@ -20,8 +20,8 @@ rule "terraform_typed_variables" {
 }
  
 # AWS specific rules
-#rule "aws_resource_missing_tags" {
-#  enabled = true
-#  tags = ["Environment", "Project", "Owner", "ManagedBy"]
-#}
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["environment", "project", "owner"]
+}
  
