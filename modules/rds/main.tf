@@ -17,8 +17,14 @@ resource "aws_db_instance" "mysql" {
   publicly_accessible    = false
   db_subnet_group_name   = aws_db_subnet_group.rds.name
   vpc_security_group_ids = var.vpc_security_group_ids
-  skip_final_snapshot    = true
-
+  # Required for read replica creation
+  backup_retention_period   = 7
+  skip_final_snapshot       = false
+  final_snapshot_identifier = "db-snap"
+  multi_az                  = false
+  availability_zone         = "ap-south-1a" # Specify AZ
+  maintenance_window        = "Mon:00:00-Mon:03:00"
+  backup_window             = "03:00-06:00"
   tags = var.tags
 }
 
