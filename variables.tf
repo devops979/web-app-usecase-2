@@ -28,6 +28,11 @@ variable "availability_zones" {
   default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
+variable "environment" {
+  description = "The Name of the environment"
+  type        = string
+  default     = "Dev"
+}
 
 variable "key_name" {
     description = "The key name of the instance"
