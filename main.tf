@@ -11,7 +11,7 @@ module "network" {
   public_cidr_block  = var.public_subnet_cidrs
   private_cidr_block = var.private_subnet_cidrs
   azs                = var.availability_zones
-  Owner              = "demo-webapp-alb"
+  owner              = "demo-webapp-alb"
 }
 
 module "nat" {
@@ -30,15 +30,15 @@ module "security_groups" {
 }
 
 module "ec2" {
-   source            = "./modules/ec2"
-   key_name        = var.key_name
-   ami_id        = var.ami_id
-   sg_id         = module.sg.sg_id
-   vpc_name        = module.network.vpc_name
-   public_subnets = module.network.public_subnets_id
-   instance_type   = var.instance_type
-   project_name    = "demo-instance"
-  user_data         = <<-EOF
+  source         = "./modules/ec2"
+  key_name       = var.key_name
+  ami_name       = var.ami_id
+  sg_id          = module.security_groups.web_sg_id
+  vpc_name       = module.network.vpc_name
+  public_subnets = module.network.public_subnets_id
+  instance_type  = var.instance_type
+  project_name   = "demo-instance"
+  user_data      = <<-EOF
                       #!/bin/bash
                       sudo apt update -y
                       sudo apt install nginx -y
@@ -67,11 +67,11 @@ module "alb" {
   source                = "./modules/alb"
   name                  = "web-lb"
   security_group_id     = module.security_groups.web_sg_id
-  subnet_ids            = module.network.public_subnet_id
+  subnet_ids            = module.network.public_subnets_id
   target_group_name     = "web-target-group"
   target_group_port     = 80
   target_group_protocol = "HTTP"
-  vpc_id                = module.vpc.vpc_id
+  vpc_id                = module.network.vpc_id
   health_check_path     = "/"
   health_check_protocol = "HTTP"
   health_check_interval = 30

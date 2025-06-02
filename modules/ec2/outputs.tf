@@ -3,6 +3,6 @@ output "instance_id" {
   value       = aws_instance.web-servers[*].id
 }
 
-output "private_ip" {
-  value = aws_instance.web-servers[*].private_ip
+output "public_ip" {
+  value = aws_instance.web-servers[*].public_ip
 }

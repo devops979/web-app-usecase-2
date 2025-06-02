@@ -35,7 +35,7 @@ variable "environment" {
 }
 
 variable "key_name" {
-    description = "The key name of the instance"
+  description = "The key name of the instance"
   type        = string
   default     = "devops-tools"
 }
