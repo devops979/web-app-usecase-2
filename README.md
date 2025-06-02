@@ -22,7 +22,7 @@
 | <a name="module_alb"></a> [alb](#module\_alb) | ./modules/alb | n/a |
 | <a name="module_ec2"></a> [ec2](#module\_ec2) | ./modules/ec2 | n/a |
 | <a name="module_rds"></a> [rds](#module\_rds) | ./modules/rds | n/a |
-| <a name="module_nat"></a> [nat](#module\_nat\) | ./modules/route_nat | n/a |
+| <a name="module_nat"></a> [nat](#module\_nat\) | ./modules/nat | n/a |
 | <a name="module_security_groups"></a> [security\_groups](#module\_security\_groups) | ./modules/security_groups | n/a |
 | <a name="module_network"></a> [network](#module\network) | ./modules/network | n/a |
 
