@@ -75,7 +75,7 @@ jobs:
         working-directory: ./
 
       - name: Generate Terraform Plan
-        run: terraform plan -var-file="terraform.tfvars" -lock=false
+        run: terraform plan
         working-directory: ./
 
       - name: Perform Action
