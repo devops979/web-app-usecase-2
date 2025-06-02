@@ -15,12 +15,4 @@ rule "terraform_deprecated_interpolation" {
   enabled = true
 }
 
-rule "aws_s3_bucket_versioning" {
-  enabled = true
-  message = "S3 buckets must have versioning enabled."
-  check = {
-    resource = "aws_s3_bucket"
-    key      = "versioning"
-    value    = "Enabled"
-  }
-}
+
