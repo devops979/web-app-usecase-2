@@ -32,10 +32,10 @@ module "security_groups" {
 module "ec2" {
    source            = "./modules/ec2"
    key_name        = var.key_name
-   ami        = var.ami_id
-   vpc_security_group_ids         = module.sg.sg_id
+   ami_id        = var.ami_id
+   sg_id         = module.sg.sg_id
    vpc_name        = module.network.vpc_name
-   subnet_id = module.network.public_subnets_id
+   public_subnets = module.network.public_subnets_id
    instance_type   = var.instance_type
    project_name    = "demo-instance"
   user_data         = <<-EOF
