@@ -6,6 +6,7 @@ resource "aws_db_subnet_group" "rds" {
 }
 
 resource "aws_db_instance" "mysql" {
+  identifier           = "demo-webapp-rds"
   allocated_storage    = var.allocated_storage
   engine               = var.engine
   engine_version       = var.engine_version
