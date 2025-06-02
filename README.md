@@ -22,16 +22,10 @@
 | <a name="module_alb"></a> [alb](#module\_alb) | ./modules/alb | n/a |
 | <a name="module_ec2"></a> [ec2](#module\_ec2) | ./modules/ec2 | n/a |
 | <a name="module_rds"></a> [rds](#module\_rds) | ./modules/rds | n/a |
-| <a name="module_route_tables"></a> [route\_tables](#module\_route\_tables) | ./modules/route_tables | n/a |
+| <a name="module_nat"></a> [nat](#module\_nat\) | ./modules/route_nat | n/a |
 | <a name="module_security_groups"></a> [security\_groups](#module\_security\_groups) | ./modules/security_groups | n/a |
-| <a name="module_subnets"></a> [subnets](#module\_subnets) | ./modules/subnets | n/a |
 | <a name="module_vpc"></a> [vpc](#module\network) | ./modules/network | n/a |
 
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 
 ## Inputs
 
