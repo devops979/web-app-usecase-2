@@ -7,7 +7,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.94.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.99.1 |
 
 ## Providers
 
@@ -25,7 +25,7 @@
 | <a name="module_route_tables"></a> [route\_tables](#module\_route\_tables) | ./modules/route_tables | n/a |
 | <a name="module_security_groups"></a> [security\_groups](#module\_security\_groups) | ./modules/security_groups | n/a |
 | <a name="module_subnets"></a> [subnets](#module\_subnets) | ./modules/subnets | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | ./modules/vpc | n/a |
+| <a name="module_vpc"></a> [vpc](#module\network) | ./modules/network | n/a |
 
 ## Resources
 
