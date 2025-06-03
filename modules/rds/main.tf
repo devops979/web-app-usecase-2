@@ -22,7 +22,7 @@ resource "aws_db_instance" "mysql" {
   skip_final_snapshot       = false
   final_snapshot_identifier = "db-snap"
   multi_az                  = false
-  availability_zone         = "ap-south-1a" # Specify AZ
+  availability_zone         = "us-east-1b" # Specify AZ
   maintenance_window        = "Mon:00:00-Mon:03:00"
   backup_window             = "03:00-06:00"
   tags = var.tags
